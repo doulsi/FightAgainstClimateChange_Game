@@ -18,47 +18,51 @@ class GameState {
             $this->loadState();
         }
     }
-
+	
+    // Initialize game state in PHP session
     private function initializeState() {
         $_SESSION['gameState'] = [
-            'year' => 2024,
+            'year' => date("Y"),
             'resources' => [
-                'fossilFuels' => 100,
-                'forests' => 68,
-                'fisheries' => 50,
-                'freshWater' => 70
+                'fossilFuels'  		  => 100,
+                'forests'      		  => 68,
+                'fisheries'    		  => 50,
+                'freshWater'   		  => 70,
+				'electricity'         => 50
             ],
             'metrics' => [
-                'globalTemperature' => 1.2,
-                'biodiversityIndex' => 68,
-                'populationBillions' => 8.1,
-                'pollutionLevel' => 75
+                'globalTemperature'   => 1.2,
+                'biodiversityIndex'   => 68,
+                'populationBillions'  => 8.1,
+                'pollutionLevel'      => 75
             ],
             'economy' => [
-                'globalGDP' => 100,
-                'renewableEnergy' => 15,
-                'circularEconomy' => 10
+                'globalGDP'           => 100,
+                'renewableEnergy'     => 15,
+                'circularEconomy'     => 10
             ],
             'playerResources' => [
-                'credits' => 1000,
-                'research' => 0,
-                'influence' => 0
+                'credits'             => 1000,
+                'research'            => 0,
+                'influence'           => 0
             ],
             'events' => []
         ];
         $this->loadState();
     }
 
+	// Load game state from PHP session
     private function loadState() {
-        $state = $_SESSION['gameState'];
-        $this->year = $state['year'];
-        $this->resources = $state['resources'];
-        $this->metrics = $state['metrics'];
-        $this->economy = $state['economy'];
+        $state                 = $_SESSION['gameState'];
+        $this->year            = $state['year'];
+        $this->resources       = $state['resources'];
+        $this->metrics         = $state['metrics'];
+        $this->economy         = $state['economy'];
         $this->playerResources = $state['playerResources'];
-        $this->events = $state['events'];
+        $this->events          = $state['events'];
     }
-
+	
+    // Save game state in PHP session
     public function saveState() {
         $_SESSION['gameState'] = [
             'year' => $this->year,
@@ -70,6 +74,7 @@ class GameState {
         ];
     }
 
+	// Handles incoming requests
     public function performAction($action) {
         switch ($action) {
             case 'plant_trees':

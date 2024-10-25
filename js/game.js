@@ -1,3 +1,70 @@
+
+const subActions = {
+    plant_trees: ['Restore Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
+    renewable_energy: ['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
+    research: ['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
+    policy: ['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
+};
+
+// Modify performAction to handle sub-action modal display
+async function performAction(action) {
+    // Check if there are sub-actions; if so, display modal
+    if (subActions[action]) {
+        displaySubActions(action);
+    } else {
+        // If no sub-actions, proceed with the main action directly
+        processAction(action);
+    }
+}
+
+// Display modal for sub-actions
+function displaySubActions(action) {
+    const subActionsContainer = document.getElementById('subActionsContainer');
+    subActionsContainer.innerHTML = '';  // Clear previous options if any
+    
+    subActions[action].forEach(subAction => {
+        const button = document.createElement('button');
+        button.textContent = subAction;
+        button.className = 'sub-action-btn';
+        button.onclick = () => selectSubAction(action, subAction);
+        subActionsContainer.appendChild(button);
+    });
+    
+    document.getElementById('subActionModal').style.display = 'block';  // Show modal
+}
+
+// Process selected sub-action and make server call
+async function selectSubAction(action, subAction) {
+    closeModal();  // Close modal after selection
+    await processAction(action, subAction);
+}
+
+// Make server call to handle main or sub-action
+async function processAction(action, subAction = null) {
+    try {
+        const response = await fetch('game.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: action, subAction: subAction })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Server failed to process action');
+        }
+        
+        const gameState = await response.json();
+        updateDisplay(gameState);  // Update display with new game state
+        
+    } catch (error) {
+        console.error('Error performing action:', error);
+        showErrorMessage('Failed to perform action. Please try again.');
+    }
+}
+
+// Close modal
+function closeModal() {
+    document.getElementById('subActionModal').style.display = 'none';
+}
 // game.js
 let gameState = null;
 let gameLoopInterval = null;
@@ -149,7 +216,7 @@ function updateActionButtons(credits) {
     }
 }
 
-async function performAction(action) {
+/*async function performAction(action) {
     try {
         // Disable all action buttons during action
         const buttons = document.querySelectorAll('.action-btn');
@@ -185,7 +252,7 @@ async function performAction(action) {
         // Re-enable buttons
         updateActionButtons(gameState.playerResources.credits);
     }
-}
+}*/
 
 async function gameLoop() {
     try {
@@ -374,23 +441,6 @@ function initAdsense() {
     }
 }
 */
-
-// Add to the existing initializeGame function
-async function initializeGame() {
-    try {
-        // Existing initialization code...
-        
-        /* Monetize with Google adSence
-        initAdsense();        
-        // Refresh ads periodically
-        setInterval(refreshAds, 30000); // Refresh every 30 seconds
-		*/
-        
-    } catch (error) {
-        console.error('Failed to initialize game:', error);
-        showErrorMessage('Failed to initialize game. Please refresh the page.');
-    }
-}
 
 /* Monetize with Google adSence
 function refreshAds() {

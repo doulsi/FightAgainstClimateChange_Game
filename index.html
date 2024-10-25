@@ -36,7 +36,7 @@
                 <h2>World Status - Year <span id="current-year">2024</span></h2>
                 <div class="metrics-grid">
                     <div class="metric">
-                        <label>Global Temperature</label>
+                        <label>Average Temperature</label>
                         <div class="meter">
                             <div id="temperature-bar" class="meter-fill"></div>
                         </div>
@@ -50,7 +50,7 @@
                         <span id="biodiversity-value">68%</span>
                     </div>
                     <div class="metric">
-                        <label>Renewable Energy</label>
+                        <label>Low Carbon Emission Energy</label>
                         <div class="meter">
                             <div id="renewable-bar" class="meter-fill"></div>
                         </div>
@@ -63,16 +63,16 @@
                 <h3>Available Actions</h3>
                 <div class="actions-grid">
                     <button onclick="performAction('plant_trees')" class="action-btn">
-                        Plant Trees (100 credits)
+                        Invest in biodiversity
                     </button>
                     <button onclick="performAction('renewable_energy')" class="action-btn">
-                        Build Solar Farm (500 credits)
+                        Invest in low carbon emission energy
                     </button>
                     <button onclick="performAction('research')" class="action-btn">
-                        Fund Research (200 credits)
+                        Fund Research
                     </button>
                     <button onclick="performAction('policy')" class="action-btn">
-                        Influence Policy (300 credits)
+                        Influence Policy
                     </button>
                 </div>
             </div>
@@ -96,5 +96,15 @@
     </div>
 
     <script src="js/game.js"></script>
-</body>
+
+    <!-- Modal for sub-actions -->
+    <div id="subActionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Select Sub-Action</h3>
+            <div id="subActionsContainer"></div>
+        </div>
+    </div>
+    </body>
+    
 </html>

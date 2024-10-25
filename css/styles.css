@@ -150,4 +150,14 @@ header {
         min-height: 60px;
     }
 }
-*/
+*/    z-index: 1;
+    top: 0;
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 80%;
+    margin: 5px;
+    background: #4CAF50;
+    transition: background 0.3s;
+}
