@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="//static.criteo.net/js/ld/publishertag.js"></script>
+    <title>Climate Change Challenge</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <div class="resources-panel">
+                <div class="resource" id="credits">Credits: <span>1000</span></div>
+                <div class="resource" id="research">Research: <span>0</span></div>
+                <div class="resource" id="influence">Influence: <span>0</span></div>
+            </div>
+			
+        </header>
+        <div class="ad-container">
+                <div id="ad-banner-top" class="criteo-ad"></div>
+        </div>
+        <main>
+            <div class="world-state">
+                <h2>World Status - Year <span id="current-year">2024</span></h2>
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <label>Global Temperature</label>
+                        <div class="meter">
+                            <div id="temperature-bar" class="meter-fill"></div>
+                        </div>
+                        <span id="temperature-value">+1.2°C</span>
+                    </div>
+                    <div class="metric">
+                        <label>Biodiversity Index</label>
+                        <div class="meter">
+                            <div id="biodiversity-bar" class="meter-fill"></div>
+                        </div>
+                        <span id="biodiversity-value">68%</span>
+                    </div>
+                    <div class="metric">
+                        <label>Renewable Energy</label>
+                        <div class="meter">
+                            <div id="renewable-bar" class="meter-fill"></div>
+                        </div>
+                        <span id="renewable-value">15%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-panel">
+                <h3>Available Actions</h3>
+                <div class="actions-grid">
+                    <button onclick="performAction('plant_trees')" class="action-btn">
+                        Plant Trees (100 credits)
+                    </button>
+                    <button onclick="performAction('renewable_energy')" class="action-btn">
+                        Build Solar Farm (500 credits)
+                    </button>
+                    <button onclick="performAction('research')" class="action-btn">
+                        Fund Research (200 credits)
+                    </button>
+                    <button onclick="performAction('policy')" class="action-btn">
+                        Influence Policy (300 credits)
+                    </button>
+                </div>
+            </div>
+            <div class="ad-container">
+                 <div id="ad-banner-bottom" class="criteo-ad"></div>
+            </div>
+            <div class="events-log">
+                <h3>Events Log</h3>
+                <div id="events-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
