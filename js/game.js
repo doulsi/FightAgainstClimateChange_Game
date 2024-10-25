@@ -222,6 +222,10 @@ function checkGameConditions(state) {
         showGameOver('lose');
         clearInterval(gameLoopInterval);
     }
+	
+	/*
+	
+	*/
 }
 
 function showGameOver(result) {
@@ -357,51 +361,30 @@ function handleTouchMove(evt) {
     touchStartY = null;
 }
 
-// Criteo ad configuration
-const criteoConfig = {
-    networkId: 'YOUR_NETWORK_ID', // Replace with your actual Criteo network ID
-    adUnits: [
-        { zoneId: 'ZONE_ID_1', elementId: 'ad-banner-top' },    // Replace with your zone IDs
-        { zoneId: 'ZONE_ID_2', elementId: 'ad-banner-bottom' }
-    ]
-};
-
-// Initialize Criteo ads
-function initCriteoAds() {
-    if (typeof Criteo === 'undefined') {
-        console.warn('Criteo not loaded');
-        return;
+/*-- Monetize with Google adSence
+function initAdsense() {
+    try {
+        // Initialize all ad units
+        const adElements = document.querySelectorAll('.adsbygoogle');
+        adElements.forEach((ad) => {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+    } catch (error) {
+        console.error('Error initializing AdSense:', error);
     }
-
-    Criteo.events.push(function() {
-        const adUnits = criteoConfig.adUnits.map(unit => ({
-            zoneid: unit.zoneId,
-            containerid: unit.elementId,
-            size: '728x90' // Adjust size based on your ad unit requirements
-        }));
-
-        Criteo.DisplayAcceptableAdIfAdblocked({
-            "zoneid": criteoConfig.adUnits[0].zoneId,
-            "containerid": criteoConfig.adUnits[0].elementId,
-            "overrideZoneFloor": false
-        });
-
-        Criteo.events.push(function() {
-            Criteo.RequestBidsFromNetwork(adUnits);
-        });
-    });
 }
+*/
 
 // Add to the existing initializeGame function
 async function initializeGame() {
     try {
         // Existing initialization code...
         
-        // Initialize Criteo ads
-        initCriteoAds();
-        
+        /* Monetize with Google adSence
+        initAdsense();        
         // Refresh ads periodically
         setInterval(refreshAds, 30000); // Refresh every 30 seconds
+		*/
         
     } catch (error) {
         console.error('Failed to initialize game:', error);
@@ -409,26 +392,21 @@ async function initializeGame() {
     }
 }
 
-// Function to refresh ads
+/* Monetize with Google adSence
 function refreshAds() {
-    if (typeof Criteo === 'undefined') return;
-    
-    Criteo.events.push(function() {
-        criteoConfig.adUnits.forEach(unit => {
-            Criteo.RequestBidsFromNetwork([{
-                zoneid: unit.zoneId,
-                containerid: unit.elementId
-            }]);
+    try {
+        const adElements = document.querySelectorAll('.adsbygoogle');
+        adElements.forEach((ad) => {
+            // Clear existing ad
+            ad.innerHTML = '';
+            // Push new ad
+            (adsbygoogle = window.adsbygoogle || []).push({});
         });
-    });
-}
-
-// Add to the existing checkGameConditions function
-function checkGameConditions(state) {
-    // Existing win/lose checks...
-    
-    // Refresh ads on significant game events
-    if (state.metrics.globalTemperature >= 1.5 || state.metrics.biodiversityIndex <= 40) {
-        refreshAds();
+    } catch (error) {
+        console.error('Error refreshing ads:', error);
     }
+}
+*/
+
+
 

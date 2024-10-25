@@ -116,41 +116,38 @@ header {
     border-bottom: 1px solid #eee;
 }
 
-/* Add to styles.css */
-
+/** Monetize with adSence 
 .ad-container {
     width: 100%;
-    max-width: 728px;
+    max-width: 100%;
     margin: 20px auto;
     min-height: 90px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
+    text-align: center;
     overflow: hidden;
+    background: transparent;
 }
 
-.criteo-ad {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-/* Responsive adjustments for ads */
+// Responsive adjustments for ads 
 @media (max-width: 728px) {
     .ad-container {
-        max-width: 320px;
-        min-height: 50px;
+        min-height: 60px;
     }
 }
 
-/* Ensure ads don't break game layout on small screens */
+// Ensure smooth layout with or without ads
+.adsbygoogle {
+    display: block;
+    margin: 0 auto;
+}
+
+// Prevent layout shift while ads load
+.ad-container:empty {
+    min-height: 90px;
+}
+
 @media (max-width: 480px) {
-    .game-container {
-        padding: 10px;
-    }
-    
-    .ad-container {
-        margin: 10px auto;
+    .ad-container:empty {
+        min-height: 60px;
     }
 }
+*/
