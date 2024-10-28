@@ -1,0 +1,20 @@
+{
+	"reserch_actions": {
+		"climate_research" : {
+				"cost"               : 100,
+                "researchEffect"     : 1.0,
+				"temperatureInsight" : 0.3,
+				"pollutionEffect"    : -0.2
+		},
+		"green_tech" : {
+				"cost"           : 100,
+                "researchEffect" : 1.0,
+				"efficiencyBonus":0.3
+		},
+		"education" : {
+			"cost"           : 100,
+            "researchEffect" : 1.0,
+			"policySupport"  : 0.4
+		}
+    }
+}

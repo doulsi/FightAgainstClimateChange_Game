@@ -1,0 +1,21 @@
+{
+	"policy_actions": {
+		"carbon_tax" : {
+				"cost"              : 100,
+				"policyEffect"      :1.0,
+				"emissionReduction" : 0.3,
+				"economicImpact"    : -0.2
+		},
+		"plastic_ban" : {
+				"cost"           : 100,
+				"policyEffect"   : 1.0,
+				"pollutionEffect": -0.5,
+				"carbonEffect"   : -0.3
+		},
+		"emission_standards" : {
+			"cost"               : 100,
+			"biodiversityEffect" : 0.4,
+			"resilienceEffect"   : 0.2
+		}
+    }
+}

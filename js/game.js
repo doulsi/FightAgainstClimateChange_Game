@@ -1,10 +1,17 @@
 
 const subActions = {
-    plant_trees: ['Restore Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
-    renewable_energy: ['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
-    research: ['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
-    policy: ['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
+    plant_trees: 		['Restore Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
+    renewable_energy: 	['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
+    research: 			['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
+    policy: 			['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
 };
+
+const actions = {
+        'plant_trees': 100,
+        'renewable_energy': 500,
+        'research': 200,
+        'policy': 300
+    };
 
 // Modify performAction to handle sub-action modal display
 async function performAction(action) {
@@ -42,7 +49,7 @@ async function selectSubAction(action, subAction) {
 // Make server call to handle main or sub-action
 async function processAction(action, subAction = null) {
     try {
-        const response = await fetch('game.php', {
+        const response = await fetch('main-controller.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: action, subAction: subAction })
@@ -73,7 +80,7 @@ let gameLoopInterval = null;
 async function initializeGame() {
     try {
         // Initial game state fetch
-        const response = await fetch('game.php', {
+        const response = await fetch('main-controller.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -194,12 +201,7 @@ function updateEventsLog(events) {
 }
 
 function updateActionButtons(credits) {
-    const actions = {
-        'plant_trees': 100,
-        'renewable_energy': 500,
-        'research': 200,
-        'policy': 300
-    };
+    
     
     for (const [action, cost] of Object.entries(actions)) {
         const button = document.querySelector(`button[onclick="performAction('${action}')"]`);
@@ -225,7 +227,7 @@ function updateActionButtons(credits) {
         // Show loading indicator
         showLoadingIndicator();
         
-        const response = await fetch('game.php', {
+        const response = await fetch('main-controller.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -256,7 +258,7 @@ function updateActionButtons(credits) {
 
 async function gameLoop() {
     try {
-        const response = await fetch('game.php', {
+        const response = await fetch('main-controller.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

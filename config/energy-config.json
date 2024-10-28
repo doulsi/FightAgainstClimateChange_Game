@@ -1,0 +1,19 @@
+{
+	"energy_actions": {
+		"wind_power" : {
+				"cost": 100,
+				"energyEffect" : 2.5,
+				"pollutionEffect" : -1.5
+		},
+		"solar_farms" : {
+				"cost": 100,
+				"energyEffect": 2.0,
+				"pollutionEffect": -0.5
+		},
+		"geothermal" : {
+			"cost": 100,
+			"energyEffect": 1.8,
+			"pollutionEffect": -0.2
+		}
+    }
+}

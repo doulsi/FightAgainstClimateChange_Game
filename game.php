@@ -65,12 +65,12 @@ class GameState {
     // Save game state in PHP session
     public function saveState() {
         $_SESSION['gameState'] = [
-            'year' => $this->year,
-            'resources' => $this->resources,
-            'metrics' => $this->metrics,
-            'economy' => $this->economy,
-            'playerResources' => $this->playerResources,
-            'events' => $this->events
+            'year' 				=> $this->year,
+            'resources' 		=> $this->resources,
+            'metrics' 			=> $this->metrics,
+            'economy' 			=> $this->economy,
+            'playerResources' 	=> $this->playerResources,
+            'events' 			=> $this->events
         ];
     }
 
