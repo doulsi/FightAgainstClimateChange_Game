@@ -26,10 +26,10 @@ class GameEngine {
     
     private function initializeModules() {
         $this->modules = [
-            'biodiversity' => new BiodiversityModule($this->config),
+            'biodiversity' => new BiodiversityModule($this->config)/*,
             'energy' 	   => new EnergyModule($this->config),
             'research'     => new ResearchModule($this->config),
-            'policy'       => new PolicyModule($this->config)
+            'policy'       => new PolicyModule($this->config)*/
         ];
 		error_log("[Marco] Modules initialized");
     }
@@ -39,12 +39,11 @@ class GameEngine {
     }
     
     public function processAction($action, $subAction, $gameState) {
+		error_log(sprintf('[Marco] Game engine processAction Action: [%s], subAction: [%s] , gameState: [%s]', print_r($action, true),print_r($subAction, true),print_r($gameState, true)));
         // Determine which module should handle the action
-        foreach ($this->modules as $module) {
-            $actions = $module->getActions();
-            if (isset($actions[$action])) {
-                return $module->processAction($action, $gameState);
-            }
+        foreach ($this->modules as $module) 
+		{
+			return $module->processAction($action, $subAction, $gameState);         
         }
         return $gameState;
     }

@@ -1,16 +1,16 @@
 {
 	"biodiversity_actions": {
-		"restore_wetlands" : {
+		"Restore_Wetlands" : {
 				"cost": 100,
 				"biodiversityEffect" : 0.3,
 				"pollutionEffect" : -0.2
 		},
-		"reforest_areas" : {
+		"Reforest Areas" : {
 				"cost": 100,
 				"biodiversityEffect": 0.5,
 				"carbonEffect": -0.3
 		},
-		"protect_species" : {
+		"Protect Endangered Species" : {
 			"cost": 100,
 			"biodiversityEffect": 0.4,
 			"resilienceEffect": 0.2

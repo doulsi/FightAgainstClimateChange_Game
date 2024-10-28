@@ -17,18 +17,22 @@ class BiodiversityModule {
 		error_log(sprintf('[Marco] loadConfigBioDiversity [%s]', print_r($this->config, true)));
     }
     
-    public function getStatusBiodiversity() {
-		error_log(sprintf('[Marco] getStatusBiodiversity [%s]', print_r($this->config, true)));
+    public function getActions() {
+		error_log(sprintf('[Marco] getActions Biodiversity [%s]', print_r($this->config, true)));
+		return $this->config;
     }
     
-    public function processAction($action, $gameState) {
-        $actions = $this->getStatusBiodiversity();
-        if (!isset($actions[$action])) {
+    public function processAction($action, $subAction, $gameState) {
+        $actions = $this->getActions();
+        if (!isset($actions[$action][$subAction])) {
+			error_log(sprintf('[Marco] biodiversity : subAction [%s] does not exist for module [%s]', print_r($subAction, true), print_r($actions, true)));
             return $gameState;
         }
-        
-        $actionConfig = $actions[$action];
-        if ($gameState['playerResources']['credits'] >= $actionConfig['cost']) {
+        error_log(sprintf('[Marco] biodiversity processAction [%s]', print_r($actions[$action][$subAction], true)));
+
+        $actionConfig = $actions[$action][$subAction];
+        if ($gameState['playerResources']['credits'] >= $actionConfig['cost']) 
+		{
             $gameState['playerResources']['credits'] -= $actionConfig['cost'];
             $gameState['resources']['forests'] += 0.5;
             $gameState['metrics']['biodiversityIndex'] += 0.2;
@@ -42,8 +46,7 @@ class BiodiversityModule {
         $gameState['metrics']['biodiversityIndex'] -= 0.1;
         
         // Forest impact on biodiversity
-        $gameState['metrics']['biodiversityIndex'] += 
-            $gameState['resources']['forests'] * 0.001;
+        $gameState['metrics']['biodiversityIndex'] += $gameState['resources']['forests'] * 0.001;
             
         return $gameState;
     }

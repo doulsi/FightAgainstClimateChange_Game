@@ -1,27 +1,24 @@
 
 const subActions = {
-    plant_trees: 		['Restore Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
-    renewable_energy: 	['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
-    research: 			['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
-    policy: 			['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
+    biodiversity_actions: ['Restore_Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
+    renewable_energy: 	  ['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
+    research: 			  ['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
+    policy: 			  ['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
 };
 
 const actions = {
-        'plant_trees': 100,
+        'biodiversity_actions': 100,
         'renewable_energy': 500,
         'research': 200,
         'policy': 300
     };
 
 // Modify performAction to handle sub-action modal display
-async function performAction(action) {
+async function displaySubModal(action) {
     // Check if there are sub-actions; if so, display modal
     if (subActions[action]) {
         displaySubActions(action);
-    } else {
-        // If no sub-actions, proceed with the main action directly
-        processAction(action);
-    }
+    } 
 }
 
 // Display modal for sub-actions
