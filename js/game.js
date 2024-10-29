@@ -1,6 +1,6 @@
 
 const subActions = {
-    biodiversity_actions: ['Restore_Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
+    biodiversity_actions: ['Restore Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
     renewable_energy: 	  ['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
     research: 			  ['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
     policy: 			  ['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
@@ -78,14 +78,14 @@ async function initializeGame() {
     try {
         // Initial game state fetch
         const response = await fetch('main-controller.php', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ update: true })
         });
         
         gameState = await response.json();
+		console.error('[GAME.JS] initializeGame:', gameState);
         updateDisplay(gameState);
         
         // Start game loop
@@ -113,7 +113,7 @@ function updateDisplay(state) {
     
     // Update meters with smooth transitions
     updateMeter('temperature-bar', 'temperature-value', 
-                state.metrics.globalTemperature, 2, 
+                state.metrics.averageTemperature, 2, 
                 value => `+${value.toFixed(1)}°C`);
     
     updateMeter('biodiversity-bar', 'biodiversity-value', 
@@ -125,13 +125,11 @@ function updateDisplay(state) {
                 value => `${value.toFixed(1)}%`);
     
     // Update events log with animation
-    updateEventsLog(state.events);
+    //updateEventsLog(state.events);
     
     // Update button states
-    updateActionButtons(state.playerResources.credits);
+    //updateActionButtons(state.playerResources.credits);
     
-    // Check win/lose conditions
-    checkGameConditions(state);
 }
 
 function updateMeter(barId, valueId, value, max, formatFunction) {
@@ -264,34 +262,18 @@ async function gameLoop() {
         });
         
         if (!response.ok) {
+			showErrorMessage('Network response was not ok');
             throw new Error('Network response was not ok');
         }
         
         gameState = await response.json();
         updateDisplay(gameState);
+		showErrorMessage('Game loop OK.')
     } catch (error) {
         console.error('Error in game loop:', error);
         clearInterval(gameLoopInterval);
         showErrorMessage('Game loop error. Please refresh the page.');
     }
-}
-
-function checkGameConditions(state) {
-    // Check win conditions
-    if (state.economy.renewableEnergy >= 90 && state.metrics.biodiversityIndex >= 80) {
-        showGameOver('win');
-        clearInterval(gameLoopInterval);
-    }
-    
-    // Check lose conditions
-    if (state.metrics.globalTemperature >= 2 || state.metrics.biodiversityIndex <= 20) {
-        showGameOver('lose');
-        clearInterval(gameLoopInterval);
-    }
-	
-	/*
-	
-	*/
 }
 
 function showGameOver(result) {
@@ -372,6 +354,10 @@ function initializeUI() {
     });
 }
 
+if (document.referrer === '') 
+{
+        sessionStorage.clear();
+}
 // Initialize game when document is ready
 document.addEventListener('DOMContentLoaded', initializeGame);
 

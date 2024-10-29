@@ -6,38 +6,35 @@ require_once 'engine/game-engine.php';
 class GameController {
     private $engine;
     
-    public function __construct() {
-        $this->engine               = new GameEngine();
+   
+	 public function __construct() 
+	 {
+		$this->engine               = new GameEngine();
 		$_SESSION['gameState']      = $this->engine->initializeState();
-		error_log(sprintf('[Marco] main controller [%s]', print_r($this->engine, true)));
+		$_SESSION['engine']         = serialize($this->engine);
+		error_log(sprintf('[Marco]main controller: Constructeur [%s] ', print_r($_SESSION, true)));
+		
     }
     
-    public function handleRequest() {
+    public function handleRequest() 
+	{
         $input = json_decode(file_get_contents('php://input'), true);
-        error_log(sprintf('[Marco] handleRequest [%s]', print_r($input, true)));
-        /*if (!isset($_SESSION['gameState'])) {
-            $_SESSION['gameState'] = $this->engine->initializeState();
-			error_log(sprintf('[Marco] KIWI handleRequest [%s]', print_r($this->engine, true)));
-        }*/
         
-        $gameState = $_SESSION['gameState'];
         
-        if (isset($input['action'])) {
+		$gameState    = $_SESSION['gameState'];
+		$this->engine = unserialize($_SESSION['engine']); 
+		error_log(sprintf('[Marco] INPUT handleRequest [%s] and gameSate [%s]', print_r($input, true), print_r($gameState, true)));
+		if (isset($input['action'])) {
             $gameState = $this->engine->processAction(
                 $input['action'],
                 $input['subAction'] ?? null,
                 $gameState
             );
-			error_log('[Marco] Process Action Main controller');
+			error_log(sprintf('[Marco] handleRequest process action [%s]', print_r($input, true)));
         } else {
+			error_log(sprintf('[Marco] TEST handleRequest [%s] ', print_r($this->engine, true)));
             $gameState = $this->engine->update($gameState);
-			error_log(sprintf('[Marco] BANANA: handleRequest [%s]', print_r($gameState, true)));
-        }
-        
-        // Check win/lose conditions
-        $gameStatus = $this->engine->checkGameConditions($gameState);
-        if ($gameStatus) {
-            $gameState['status'] = $gameStatus;
+			error_log(sprintf('[Marco] Update: handleRequest [%s]', print_r($gameState, true)));
         }
         
         $_SESSION['gameState'] = $gameState;
@@ -45,14 +42,21 @@ class GameController {
         return $this->sendResponse($gameState);
     }
     
-    private function sendResponse($data) {
+    public function sendResponse($data) {
         header('Content-Type: application/json');
         echo json_encode($data);
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+	$controller             = new GameController();
+	$_SESSION['controller'] = serialize($controller);
+	return $controller->sendResponse($_SESSION['gameState']);
+}
+
+
 // Handle request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$controller = new GameController();
+	$controller = unserialize($_SESSION['controller']);
     $controller->handleRequest();
-	error_log("[Marco] POST");
 }
