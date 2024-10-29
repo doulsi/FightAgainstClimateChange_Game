@@ -5,15 +5,16 @@
       "fossilFuels" : 100,
       "forests"     : 68,
       "fisheries"   : 50,
-      "freshWater"  : 70,
+      "freshWater"  : 30,
       "electricity" : 50
     },
 	
     "metrics": {
-      "globalTemperature": 1.2,
-      "biodiversityIndex": 68,
+      "averageTemperature": 1.2,
+      "biodiversityIndex": 40,
       "populationBillions": 8.1,
-      "pollutionLevel": 75
+	  "ghgEmissions": 418.84,
+      "pollutionIndex": 75
     },
 	
     "economy": {
@@ -35,7 +36,7 @@
   },
   
   "winConditions": {
-    "renewableEnergy": 90,
+    "pollutionIndex": 30,
     "biodiversityIndex": 80
   },
   "loseConditions": {

@@ -62,20 +62,5 @@ class GameEngine {
         
         return $gameState;
     }
-    
-    public function checkGameConditions($gameState) {
-        // Check win conditions
-        if ($gameState['economy']['renewableEnergy'] >= $this->config['winConditions']['renewableEnergy'] && 
-            $gameState['metrics']['biodiversityIndex'] >= $this->config['winConditions']['biodiversityIndex']) {
-            return 'win';
-        }
-        
-        // Check lose conditions
-        if ($gameState['metrics']['globalTemperature'] >= $this->config['loseConditions']['maxGlobalTemperature'] || 
-            $gameState['metrics']['biodiversityIndex'] <= $this->config['loseConditions']['minBiodiversityIndex']) {
-            return 'lose';
-        }
-        
-        return null;
-    }
+   
 }
