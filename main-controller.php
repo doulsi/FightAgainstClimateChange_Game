@@ -10,7 +10,7 @@ class GameController {
 	 public function __construct() 
 	 {
 		$this->engine               = new GameEngine();
-		$_SESSION['gameState']      = $this->engine->initializeState();
+		$_SESSION['gameState']      = $this->engine->getInitialState();
 		$_SESSION['engine']         = serialize($this->engine);
 		error_log(sprintf('[Marco]main controller: Constructeur [%s] ', print_r($_SESSION, true)));
 		
@@ -19,7 +19,6 @@ class GameController {
     public function handleRequest() 
 	{
         $input = json_decode(file_get_contents('php://input'), true);
-        
         
 		$gameState    = $_SESSION['gameState'];
 		$this->engine = unserialize($_SESSION['engine']); 

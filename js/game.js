@@ -1,22 +1,12 @@
 
-const subActions = {
-    biodiversity_actions: ['Restore Wetlands', 'Reforest Areas', 'Protect Endangered Species'],
-    renewable_energy: 	  ['Invest in Wind Power', 'Build Solar Farms', 'Develop Geothermal Energy'],
-    research: 			  ['Fund Climate Research', 'Develop Green Tech', 'Enhance Education'],
-    policy: 			  ['Introduce Carbon Tax', 'Ban Single-Use Plastics', 'Enforce Emission Standards']
-};
-
-const actions = {
-        'biodiversity_actions': 100,
-        'renewable_energy': 500,
-        'research': 200,
-        'policy': 300
-    };
+// game.js
+let gameState = null;
+let gameLoopInterval = null;
 
 // Modify performAction to handle sub-action modal display
 async function displaySubModal(action) {
     // Check if there are sub-actions; if so, display modal
-    if (subActions[action]) {
+    if (gameState[action]) {
         displaySubActions(action);
     } 
 }
@@ -25,14 +15,18 @@ async function displaySubModal(action) {
 function displaySubActions(action) {
     const subActionsContainer = document.getElementById('subActionsContainer');
     subActionsContainer.innerHTML = '';  // Clear previous options if any
-    
-    subActions[action].forEach(subAction => {
-        const button = document.createElement('button');
-        button.textContent = subAction;
-        button.className = 'sub-action-btn';
-        button.onclick = () => selectSubAction(action, subAction);
+    console.error('displaySubActions: gameState:', gameState[action]);
+	console.error('displaySubActions: gameState:', action);
+	
+    for (var key in gameState[action])
+	{
+		console.error('displaySubActions: cost:', gameState[action][key].cost);
+        const button         = document.createElement('button');
+        button.textContent   = key +  "(" + gameState[action][key].cost + "$)";
+        button.className     = 'sub-action-btn';
+        button.onclick       = () => selectSubAction(action, key);
         subActionsContainer.appendChild(button);
-    });
+    }
     
     document.getElementById('subActionModal').style.display = 'block';  // Show modal
 }
@@ -69,9 +63,7 @@ async function processAction(action, subAction = null) {
 function closeModal() {
     document.getElementById('subActionModal').style.display = 'none';
 }
-// game.js
-let gameState = null;
-let gameLoopInterval = null;
+
 
 // Initialize display elements and game state
 async function initializeGame() {

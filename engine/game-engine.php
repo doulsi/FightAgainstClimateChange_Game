@@ -17,8 +17,9 @@ class GameEngine {
     }
     
     private function loadConfig() {
-        $configPath = __DIR__ . '/../config/game-config.json';
+        $configPath   = __DIR__ . '/../config/game-config.json';
         $this->config = json_decode(file_get_contents($configPath), true);
+		error_log(sprintf("[Marco] Game engine JSON [%s] initialized", print_r($this->config, true)));
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new Exception('Failed to load game configuration');			
         }		
@@ -26,15 +27,21 @@ class GameEngine {
     
     private function initializeModules() {
         $this->modules = [
-            'biodiversity' => new BiodiversityModule($this->config)/*,
-            'energy' 	   => new EnergyModule($this->config),
-            'research'     => new ResearchModule($this->config),
-            'policy'       => new PolicyModule($this->config)*/
+            'biodiversity' => new BiodiversityModule()/*,
+            'energy' 	   => new EnergyModule(),
+            'research'     => new ResearchModule(),
+            'policy'       => new PolicyModule()*/
         ];
-		error_log("[Marco] Modules initialized");
+		error_log(sprintf("[Marco] Game engine initializeModules [%s] ", print_r($this->config, true)));
+
+		foreach ($this->modules as $module) 
+		{
+			$this->config['initialState'] += $module->getActions();			
+		}
+		error_log(sprintf("[Marco] Game engine module initialized [%s] ", print_r($this->config['initialState'], true)));
     }
     
-    public function initializeState() {
+    public function getInitialState() {
         return $this->config['initialState'];
     }
     
