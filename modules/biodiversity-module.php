@@ -37,7 +37,7 @@ class BiodiversityModule {
             $gameState['metrics']['biodiversityIndex']  += $actionConfig['biodiversityIndex'];
             $gameState['metrics']['pollutionIndex']     += $actionConfig['pollutionIndex'];
 			
-			$gameState['resources']['forests']           +=  $actionConfig['forests'];
+			$gameState['resources']['forests']          +=  $actionConfig['forests'];
 			$gameState['resources']['fisheries']        +=  $actionConfig['fisheries'];
 
         }
@@ -53,7 +53,8 @@ class BiodiversityModule {
         // Forest & fisheries impact on biodiversity and pollution
         $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['forests']   * 0.001;
         $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['fisheries'] * 0.001;
-        $gameState['metrics']['pollutionIndex']      -= $gameState['resources']['forests']   * 0.01;
+        $gameState['metrics']['pollutionIndex']      -= $gameState['resources']['forests']   * 0.01 + $gameState['resources']['fisheries'] * 0.01;
+		$gameState['metrics']['ghgEmissions']        -= $gameState['metrics']['pollutionIndex'] * 0.01;
             
         return $gameState;
     }

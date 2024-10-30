@@ -16,7 +16,7 @@ class GameController {
 		
     }
     
-    public function handleRequest() 
+    public function handlePostRequest() 
 	{
         $input = json_decode(file_get_contents('php://input'), true);
         
@@ -57,5 +57,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 // Handle request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$controller = unserialize($_SESSION['controller']);
-    $controller->handleRequest();
+    $controller->handlePostRequest();
 }

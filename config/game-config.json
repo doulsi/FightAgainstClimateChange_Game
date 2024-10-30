@@ -2,24 +2,23 @@
   "initialState": {
     "year": 2024,
     "resources": {
-      "fossilFuels" : 100,
+      "fossilFuels" : 110,
       "forests"     : 68,
       "fisheries"   : 50,
       "freshWater"  : 30,
-      "electricity" : 50
+      "electricity" : 30
     },
 	
     "metrics": {
       "averageTemperature": 1.2,
       "biodiversityIndex": 40,
       "populationBillions": 8.1,
-	  "ghgEmissions": 418.84,
+	  "ghgEmissions": 100,
       "pollutionIndex": 75
     },
 	
     "economy": {
       "globalGDP": 100,
-      "renewableEnergy": 15,
       "circularEconomy": 10
     },
 	

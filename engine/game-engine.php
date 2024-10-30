@@ -27,9 +27,9 @@ class GameEngine {
     
     private function initializeModules() {
         $this->modules = [
-            'biodiversity' => new BiodiversityModule()/*,
+            'biodiversity' => new BiodiversityModule(),
             'energy' 	   => new EnergyModule(),
-            'research'     => new ResearchModule(),
+            /*'research'     => new ResearchModule(),
             'policy'       => new PolicyModule()*/
         ];
 		error_log(sprintf("[Marco] Game engine initializeModules [%s] ", print_r($this->config, true)));
@@ -50,7 +50,7 @@ class GameEngine {
         // Determine which module should handle the action
         foreach ($this->modules as $module) 
 		{
-			return $module->processAction($action, $subAction, $gameState);         
+			$module->processAction($action, $subAction, $gameState);         
         }
         return $gameState;
     }

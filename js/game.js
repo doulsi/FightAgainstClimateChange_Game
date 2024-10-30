@@ -16,15 +16,19 @@ function displaySubActions(action) {
     const subActionsContainer = document.getElementById('subActionsContainer');
     subActionsContainer.innerHTML = '';  // Clear previous options if any
     console.error('displaySubActions: gameState:', gameState[action]);
-	console.error('displaySubActions: gameState:', action);
+	console.error('displaySubActions: action:', action);
 	
-    for (var key in gameState[action])
+    for (let key in gameState[action])
 	{
-		console.error('displaySubActions: cost:', gameState[action][key].cost);
+		console.error('displaySubActions: key :', key);
+		//console.error('displaySubActions: cost:', gameState[action][key].cost);
         const button         = document.createElement('button');
-        button.textContent   = key +  "(" + gameState[action][key].cost + "$)";
+        button.textContent   = button.textContent = `${key} (${gameState[action][key].cost}$)`;
+		button.onclick = (() => {
+			return () => selectSubAction(action, key);
+        })();
+		
         button.className     = 'sub-action-btn';
-        button.onclick       = () => selectSubAction(action, key);
         subActionsContainer.appendChild(button);
     }
     
@@ -34,6 +38,8 @@ function displaySubActions(action) {
 // Process selected sub-action and make server call
 async function selectSubAction(action, subAction) {
     closeModal();  // Close modal after selection
+	console.error('selectSubAction: action:', action);
+	console.error('selectSubAction: subAction:', subAction);
     await processAction(action, subAction);
 }
 
@@ -81,7 +87,7 @@ async function initializeGame() {
         updateDisplay(gameState);
         
         // Start game loop
-        gameLoopInterval = setInterval(gameLoop, 5000); // Update every 5 seconds
+        //gameLoopInterval = setInterval(gameLoop, 5000); // Update every 5 seconds
         
         // Add event listeners for UI interactions
         setupEventListeners();
@@ -112,8 +118,8 @@ function updateDisplay(state) {
                 state.metrics.biodiversityIndex, 100, 
                 value => `${value.toFixed(1)}%`);
     
-    updateMeter('renewable-bar', 'renewable-value', 
-                state.economy.renewableEnergy, 100, 
+    updateMeter('ghg-bar', 'ghg-value', 
+                state.metrics.ghgEmissions, 100, 
                 value => `${value.toFixed(1)}%`);
     
     // Update events log with animation
@@ -125,9 +131,9 @@ function updateDisplay(state) {
 }
 
 function updateMeter(barId, valueId, value, max, formatFunction) {
-    const bar = document.getElementById(barId);
+    const bar          = document.getElementById(barId);
     const valueDisplay = document.getElementById(valueId);
-    const percentage = (value / max) * 100;
+    const percentage   = (value / max) * 100;
     
     // Smooth transition for the bar
     bar.style.transition = 'width 0.5s ease-in-out';
