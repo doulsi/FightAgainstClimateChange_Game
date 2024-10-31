@@ -51,7 +51,6 @@ class ResearchModule {
         
         
         $gameState['metrics']['pollutionIndex']      -= $gameState['metrics']['climateEducationIndex']  * 0.2 + $gameState['metrics']['circularEconomyIndex']  * 0.1 ;
-		$gameState['metrics']['ghgEmissions']        -= $gameState['metrics']['pollutionIndex'] * 0.01;
         
         return $gameState;
     }

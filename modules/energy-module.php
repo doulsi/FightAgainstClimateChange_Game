@@ -40,8 +40,7 @@ class EnergyModule {
     
     public function update($gameState) {
                 
-        // ghgEmissions impact from energy 
-        $gameState['metrics']['ghgEmissions'] += $gameState['resources']['fossilFuels'] * 0.1 + $gameState['resources']['electricity'] * 0.001 ; 
+        
         
         return $gameState;
     }
