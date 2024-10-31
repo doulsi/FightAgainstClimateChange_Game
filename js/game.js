@@ -87,7 +87,7 @@ async function initializeGame() {
         updateDisplay(gameState);
         
         // Start game loop
-        //gameLoopInterval = setInterval(gameLoop, 5000); // Update every 5 seconds
+        gameLoopInterval = setInterval(gameLoop, 5000); // Update every 5 seconds
         
         // Add event listeners for UI interactions
         setupEventListeners();
@@ -111,7 +111,7 @@ function updateDisplay(state) {
     
     // Update meters with smooth transitions
     updateMeter('temperature-bar', 'temperature-value', 
-                state.metrics.averageTemperature, 2, 
+                state.metrics.averageTemperature, 4, 
                 value => `+${value.toFixed(1)}°C`);
     
     updateMeter('biodiversity-bar', 'biodiversity-value', 

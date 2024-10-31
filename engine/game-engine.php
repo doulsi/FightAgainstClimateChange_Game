@@ -27,10 +27,10 @@ class GameEngine {
     
     private function initializeModules() {
         $this->modules = [
-            'biodiversity' => new BiodiversityModule(),
+            /*'biodiversity' => new BiodiversityModule(),
             'energy' 	   => new EnergyModule(),
-            /*'research'     => new ResearchModule(),
-            'policy'       => new PolicyModule()*/
+           'research'     => new ResearchModule(),*/
+            'policy'       => new PolicyModule()
         ];
 		error_log(sprintf("[Marco] Game engine initializeModules [%s] ", print_r($this->config, true)));
 
