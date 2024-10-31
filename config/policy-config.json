@@ -1,21 +1,24 @@
 {
-	"policy_actions": {
-		"carbon_tax" : {
-				"cost"              : 100,
-				"policyEffect"      :1.0,
-				"emissionReduction" : 0.3,
-				"economicImpact"    : -0.2
+	"policy_actions": 
+	{
+		"Carbon tax" : 
+		{
+			"cost"                 : 400,
+			"pollutionIndex"       : 0.5,
+			"economicImpactIndex"  : -0.2,
+			"circularEconomyIndex" : 2.0
 		},
-		"plastic_ban" : {
-				"cost"           : 100,
-				"policyEffect"   : 1.0,
-				"pollutionEffect": -0.5,
-				"carbonEffect"   : -0.3
+		"Ban plastic" : {
+			"cost"                : 500,
+			"pollutionIndex"      : -5,
+			"economicImpactIndex" : 2,
+			"circularEconomyIndex": 0.2
 		},
-		"emission_standards" : {
-			"cost"               : 100,
-			"biodiversityEffect" : 0.4,
-			"resilienceEffect"   : 0.2
+		"Stop fossiel fuel prospection" : {
+			"cost"                : 2000,
+			"pollutionIndex"      : -40,
+			"economicImpactIndex" : 6, 
+			"circularEconomyIndex": 2.0 
 		}
     }
 }
