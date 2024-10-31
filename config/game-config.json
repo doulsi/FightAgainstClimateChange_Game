@@ -34,6 +34,7 @@
   
   "updateIntervals": {
     "gameLoop": 5000,
+    "credits": 200,
     "yearIncrement": 0.25
   },
   

@@ -70,7 +70,7 @@ class GameEngine {
         }
         
         // Add basic income
-        $gameState['playerResources']['credits'] += 50;
+        $gameState['playerResources']['credits'] += $this->config['updateIntervals']['credits'];
         
         return $gameState;
     }
