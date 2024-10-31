@@ -3,7 +3,7 @@
 class ResearchModule {
     private $config;
     
-    public function __construct($config) {
+    public function __construct() {
         $this->loadConfigResearch();
     }
     
@@ -17,52 +17,41 @@ class ResearchModule {
 		error_log(sprintf('[Marco] loadConfigResearch [%s]', print_r($this->config, true)));		
 	}
     
-    public function getStatusResearch() {
+    public function getActions() {
         error_log(sprintf('[Marco] getStatusResearch [%s]', print_r($this->config, true)));
+		return $this->config;
     }
     
     public function processAction($action, $subAction, $gameState) {
-        $actions = $this->getStatusResearch();
-        if (!isset($actions[$action])) {
+        $actions = $this->getActions();
+        if (!isset($actions[$action][$subAction])) {
+			error_log(sprintf('[Marco] research : subAction [%s] does not exist for module [%s]', print_r($subAction, true), print_r($actions, true)));
             return $gameState;
         }
+        error_log(sprintf('[Marco] research processAction [%s]', print_r($actions[$action][$subAction], true)));
         
-        $actionConfig = $actions[$action];
-        if ($gameState['playerResources']['credits'] >= $actionConfig['cost']) {
+        $actionConfig = $actions[$action][$subAction];
+        if ($gameState['playerResources']['credits'] >= $actionConfig['cost']) 
+		{
             $gameState['playerResources']['credits'] -= $actionConfig['cost'];
             
-            $subActionConfig = $actionConfig['subActions'][$subAction] ?? $actionConfig['subActions']['climate_research'];
-            
-            // Base research increase
-            $gameState['playerResources']['research'] += $subActionConfig['researchEffect'];
-            
-            // Apply specific bonuses based on research type
-            switch ($subAction) {
-                case 'climate_research':
-                    $gameState['metrics']['globalTemperature'] -= 0.01;
-                    break;
-                case 'green_tech':
-                    $gameState['economy']['renewableEnergy'] *= (1 + $subActionConfig['efficiencyBonus']);
-                    break;
-                case 'education':
-                    $gameState['playerResources']['influence'] += $subActionConfig['policySupport'];
-                    break;
-            }
+            $gameState['metrics']['economicImpactIndex']   += $actionConfig['economicImpactIndex'];
+            $gameState['metrics']['circularEconomyIndex']  += $actionConfig['circularEconomyIndex'];
+            $gameState['metrics']['climateEducationIndex'] += $actionConfig['climateEducationIndex'];
         }
         
         return $gameState;
     }
     
     public function update($gameState) {
-        // Research decay over time (knowledge needs updating)
-        $gameState['playerResources']['research'] *= 0.95;
         
-        // Research benefits
-        if ($gameState['playerResources']['research'] > 0) {
-            // Research improves efficiency of other actions
-            $gameState['economy']['circularEconomy'] += 
-                $gameState['playerResources']['research'] * 0.01;
-        }
+		// Natural biodiversity decline
+        $gameState['metrics']['climateEducationIndex'] -= 0.2;
+        $gameState['metrics']['circularEconomyIndex']  -= 0.1;
+        
+        
+        $gameState['metrics']['pollutionIndex']      -= $gameState['metrics']['climateEducationIndex']  * 0.2 + $gameState['metrics']['circularEconomyIndex']  * 0.1 ;
+		$gameState['metrics']['ghgEmissions']        -= $gameState['metrics']['pollutionIndex'] * 0.01;
         
         return $gameState;
     }

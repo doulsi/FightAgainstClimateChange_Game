@@ -2,7 +2,7 @@
   "initialState": {
     "year": 2024,
     "resources": {
-      "fossilFuels" : 110,
+      "fossilFuels" : 100,
       "forests"     : 68,
       "fisheries"   : 50,
       "freshWater"  : 30,
@@ -10,11 +10,14 @@
     },
 	
     "metrics": {
-      "averageTemperature": 1.2,
-      "biodiversityIndex": 40,
-      "populationBillions": 8.1,
-	  "ghgEmissions": 100,
-      "pollutionIndex": 75
+      "averageTemperature"    : 1.2,
+      "biodiversityIndex"     : 40,
+      "populationBillions"    : 8.1,
+	  "ghgEmissions"          : 100,
+	  "circularEconomyIndex"  : 10,
+	  "climateEducationIndex" : 5,
+	  "economicImpactIndex"   : -15,
+      "pollutionIndex"        : 75
     },
 	
     "economy": {

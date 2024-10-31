@@ -1,20 +1,33 @@
 {
-	"reserch_actions": {
-		"climate_research" : {
-				"cost"               : 100,
-                "researchEffect"     : 1.0,
-				"temperatureInsight" : 0.3,
-				"pollutionEffect"    : -0.2
+	"research_actions": 
+	{
+		"Climate research" : 
+		{
+			"cost"                  : 200,
+			"economicImpactIndex"   : 0,
+			"circularEconomyIndex"  : 0.5,
+			"climateEducationIndex" : 1.0
 		},
-		"green_tech" : {
-				"cost"           : 100,
-                "researchEffect" : 1.0,
-				"efficiencyBonus":0.3
+		"Frugality" : 
+		{
+			"cost"                 : 25,
+			"economicImpactIndex"  : -1,
+			"climateEducationIndex": 0,
+			"circularEconomyIndex" : 4
 		},
-		"education" : {
-			"cost"           : 100,
-            "researchEffect" : 1.0,
-			"policySupport"  : 0.4
+		"Education" : 
+		{
+			"cost"                   : 800,			
+			"economicImpactIndex"    : 8,
+            "climateEducationIndex"  : 8.0,
+			"circularEconomyIndex"   : 3.0
+		},
+		"Recycling" : 
+		{
+			"cost"                 : 100,			
+			"economicImpactIndex"  : 2,
+            "circularEconomyIndex" : 1.0,
+			"climateEducationIndex": 0
 		}
     }
 }

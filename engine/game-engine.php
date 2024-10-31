@@ -50,7 +50,7 @@ class GameEngine {
         // Determine which module should handle the action
         foreach ($this->modules as $module) 
 		{
-			$module->processAction($action, $subAction, $gameState);         
+			$gameState = $module->processAction($action, $subAction, $gameState);         
         }
         return $gameState;
     }
