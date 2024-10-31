@@ -4,19 +4,22 @@
 		"Carbon tax" : 
 		{
 			"cost"                 : 400,
-			"pollutionIndex"       : 0.5,
+			"pollutionIndex"       : -2,
+			"fossilFuels"          : -4,
 			"economicImpactIndex"  : -0.2,
 			"circularEconomyIndex" : 2.0
 		},
 		"Ban plastic" : {
 			"cost"                : 500,
 			"pollutionIndex"      : -5,
+			"fossilFuels"          : -2,
 			"economicImpactIndex" : 2,
 			"circularEconomyIndex": 0.2
 		},
 		"Stop fossiel fuel prospection" : {
 			"cost"                : 2000,
 			"pollutionIndex"      : -40,
+			"fossilFuels"         : -60,
 			"economicImpactIndex" : 6, 
 			"circularEconomyIndex": 2.0 
 		}
