@@ -6,6 +6,7 @@ require_once 'modules/biodiversity-module.php';
 require_once 'modules/energy-module.php';
 require_once 'modules/research-module.php';
 require_once 'modules/policy-module.php';
+require_once 'modules/ghg-module.php';
 
 class GameEngine {
     private $config;
@@ -27,16 +28,20 @@ class GameEngine {
     
     private function initializeModules() {
         $this->modules = [
-            /*'biodiversity' => new BiodiversityModule(),
+            'biodiversity' => new BiodiversityModule(),
             'energy' 	   => new EnergyModule(),
-           'research'     => new ResearchModule(),*/
-            'policy'       => new PolicyModule()
+            'research'     => new ResearchModule(),
+            'policy'       => new PolicyModule(),
+            'ghg'          => new GhgModule()
         ];
 		error_log(sprintf("[Marco] Game engine initializeModules [%s] ", print_r($this->config, true)));
 
 		foreach ($this->modules as $module) 
 		{
-			$this->config['initialState'] += $module->getActions();			
+			if($module->getActions() != NULL)			
+			{
+				$this->config['initialState'] += $module->getActions();	
+			}	
 		}
 		error_log(sprintf("[Marco] Game engine module initialized [%s] ", print_r($this->config['initialState'], true)));
     }
