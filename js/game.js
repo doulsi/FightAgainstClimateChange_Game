@@ -3,6 +3,34 @@
 let gameState = null;
 let gameLoopInterval = null;
 
+// Initialize Chart
+const ctx = document.getElementById('climateChart').getContext('2d');
+const climateChart = new Chart(ctx, {
+	type: 'line',
+	data: {
+		labels: [],
+		datasets: [{
+			label: 'Temperature Change (°C)',
+			data: [],
+			borderColor: 'rgb(255, 99, 132)',
+			tension: 0.1
+		}, {
+			label: 'Biodiversity Index (%)',
+			data: [],
+			borderColor: 'rgb(75, 192, 192)',
+			tension: 0.1
+		}]
+	},
+	options: {
+		responsive: true,
+		scales: {
+			y: {
+				beginAtZero: false
+			}
+		}
+	}
+});
+
 // Modify performAction to handle sub-action modal display
 async function displaySubModal(action) {
     // Check if there are sub-actions; if so, display modal
@@ -106,8 +134,6 @@ function updateDisplay(state) {
     
     // Update resources with animation
     animateValueChange('#credits span', state.playerResources.credits);
-    animateValueChange('#research span', state.playerResources.research);
-    animateValueChange('#influence span', state.playerResources.influence);
     
     // Update meters with smooth transitions
     updateMeter('temperature-bar', 'temperature-value', 
@@ -122,6 +148,12 @@ function updateDisplay(state) {
                 state.metrics.ghgEmissions, 100, 
                 value => `${value.toFixed(1)}%`);
     
+	// Update chart
+	climateChart.data.labels.push(gameState.year);
+	climateChart.data.datasets[0].data = gameState.history.temperature;
+	climateChart.data.datasets[1].data = gameState.history.biodiversity;
+	climateChart.update();
+	
     // Update events log with animation
     //updateEventsLog(state.events);
     
@@ -331,10 +363,6 @@ function setupEventListeners() {
     // Add keyboard shortcuts
     document.addEventListener('keydown', (e) => {
         switch(e.key) {
-            case '1': performAction('plant_trees'); break;
-            case '2': performAction('renewable_energy'); break;
-            case '3': performAction('research'); break;
-            case '4': performAction('policy'); break;
             case 'p': togglePause(); break;
         }
     });
@@ -349,7 +377,7 @@ function initializeUI() {
     const buttons = document.querySelectorAll('.action-btn');
     buttons.forEach(button => {
         button.setAttribute('title', button.textContent);
-    });
+    });	
 }
 
 if (document.referrer === '') 

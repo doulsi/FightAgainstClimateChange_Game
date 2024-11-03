@@ -29,7 +29,13 @@
       "credits"   : 1000,
       "research"  : 0,
       "influence" : 0
-    }
+    },
+	"history": 
+	{
+		"temperature":  [],
+		"biodiversity": [],
+		"emissions": 	[]
+	}
   },
   
   "updateIntervals": {

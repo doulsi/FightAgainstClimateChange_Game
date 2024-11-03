@@ -13,7 +13,7 @@ class BiodiversityModule {
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new Exception('Failed to load biodiversity game configuration');
 			
-        }		
+        }	
 		error_log(sprintf('[Marco] loadConfigBioDiversity [%s]', print_r($this->config, true)));
     }
     
@@ -56,6 +56,7 @@ class BiodiversityModule {
 			
 		$gameState['metrics']['biodiversityIndex']  -= $gameState['metrics']['pollutionIndex'] * 0.01;
 		
+		$gameState['history']['biodiversity'][] = $gameState['metrics']['biodiversityIndex'];
         return $gameState;
     }
 }
