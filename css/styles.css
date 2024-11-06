@@ -200,6 +200,44 @@ header {
     transition: background 0.3s;
 }
 
-.sub-action-btn:hover {
-    background: #45a049;
+/* Add these styles to styles.css */
+.custom-tooltip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1000;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: normal;
+    max-width: 250px;
+    width: max-content;
+    margin-bottom: 5px;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+
+/* Arrow for tooltip */
+.custom-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}
+
+.sub-action-btn {
+    position: relative;
+}
+
+.sub-action-btn:hover .custom-tooltip {
+    visibility: visible;
+    opacity: 1;
 }

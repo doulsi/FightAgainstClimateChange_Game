@@ -6,28 +6,32 @@
 			"cost"                  : 200,
 			"economicImpactIndex"   : 0,
 			"circularEconomyIndex"  : 0.5,
-			"climateEducationIndex" : 1.0
+			"climateEducationIndex" : 1.0,
+			"description": "Increase circular economy by 0.5 and climate education by 1.0"
 		},
 		"Frugality" : 
 		{
 			"cost"                 : 25,
 			"economicImpactIndex"  : -1,
 			"climateEducationIndex": 0,
-			"circularEconomyIndex" : 4
+			"circularEconomyIndex" : 0.1,
+			"description": "Increase circular economy by 0.1"
 		},
 		"Education" : 
 		{
 			"cost"                   : 800,			
 			"economicImpactIndex"    : 8,
             "climateEducationIndex"  : 8.0,
-			"circularEconomyIndex"   : 3.0
+			"circularEconomyIndex"   : 3.0,
+			"description": "Increase circular economy by 3, and climate education by 8"
 		},
 		"Recycling" : 
 		{
 			"cost"                 : 100,			
 			"economicImpactIndex"  : 2,
-            "circularEconomyIndex" : 1.0,
-			"climateEducationIndex": 0
+            "circularEconomyIndex" : 4.0,
+			"climateEducationIndex": 0,
+			"description": "Increase circular economy by 4"
 		}
     }
 }

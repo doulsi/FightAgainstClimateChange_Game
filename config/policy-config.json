@@ -7,21 +7,24 @@
 			"pollutionIndex"       : -2,
 			"fossilFuels"          : -4,
 			"economicImpactIndex"  : -0.2,
-			"circularEconomyIndex" : 2.0
+			"circularEconomyIndex" : 0.2,
+			"description": "Reduce pollution by 2, fossilFuels by 4 and increase circual economy by 0.2"
 		},
 		"Ban plastic" : {
 			"cost"                : 500,
 			"pollutionIndex"      : -5,
 			"fossilFuels"          : -2,
 			"economicImpactIndex" : 2,
-			"circularEconomyIndex": 0.2
+			"circularEconomyIndex": 5,
+			"description": "Reduce pollution by 5, fossilFuels by 2 and increase circual economy by 5"
 		},
-		"Stop fossiel fuel prospection" : {
+		"Limite fossil fuel prospection" : {
 			"cost"                : 2000,
-			"pollutionIndex"      : -40,
-			"fossilFuels"         : -60,
+			"pollutionIndex"      : 0,
+			"fossilFuels"         : -40,
 			"economicImpactIndex" : 6, 
-			"circularEconomyIndex": 2.0 
+			"circularEconomyIndex": 2.0 ,
+			"description": "Reduce fossilFuels by 40 and increase circual economy by 2"
 		}
     }
 }

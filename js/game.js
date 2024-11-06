@@ -78,6 +78,14 @@ function displaySubActions(action) {
         })();
 		
         button.className     = 'sub-action-btn';
+		
+		// Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'custom-tooltip';
+        tooltip.textContent = gameState[action][key].description || 'No description available';
+        
+        // Add tooltip to button
+        button.appendChild(tooltip);
         subActionsContainer.appendChild(button);
     }
     

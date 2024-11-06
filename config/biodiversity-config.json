@@ -3,27 +3,15 @@
 	{
 		"Restore Wetlands" : {
 			"cost": 200,
-			"biodiversityIndex" : 0.3,
-			"pollutionIndex" : -0.5,
-			"fisheries": 0.2,
-			"forests": 0.2,
-			"Description": "Restoring wetlands offers substantial opportunities for carbon sequestration, biodiversity restoration, and climate resilience, water purification and quality improvement"
-	},
+			"fisheries": 0.5,
+			"forests": 0,
+			"description": "Increase fisheries by 0.5. Additionnal carbon sequestration and biodiversity restoration"
+		},
 		"Reforest Areas" : {
 			"cost": 300,
-			"biodiversityIndex": 0.5,
-			"pollutionIndex": -0.2,
 			"fisheries": 0,
 			"forests": 0.2,
-			"Description": "Reforesting areas offers substantial opportunities for carbon sequestration, biodiversity restoration, and climate resilience"
-	},
-		"Protect Endangered Species" : {
-			"cost": 400,
-			"biodiversityIndex": 1.0,
-			"pollutionIndex": 0.0,
-			"fisheries": 0,
-			"forests": 0.2,
-			"Description": ""
+			"description": "Increase forest by 0.2. Additionnal carbon sequestration and biodiversity restoration"
 		}
     }
 }
