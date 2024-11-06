@@ -1,17 +1,17 @@
 <?php
 // modules/EnergyModule.php
-class EnergyModule {
+class IndustryModule {
     private $config;
     
     public function __construct() {
-        $this->loadConfigEnergy();
+        $this->loadConfigIndustry();
     }
     
-    private function loadConfigEnergy() {
-		$configPath = __DIR__ . '/../config/energy-config.json';		
+    private function loadConfigIndustry() {
+		$configPath = __DIR__ . '/../config/industry-config.json';		
 		$this->config = json_decode(file_get_contents($configPath), true);
 		if (json_last_error() !== JSON_ERROR_NONE) {
-			throw new Exception('Failed to load energy game configuration');		
+			throw new Exception('Failed to load industry game configuration');		
 		}	
 		error_log(sprintf('[Marco] loadConfigEnergy [%s]', print_r($this->config, true)));		
 	}
@@ -24,7 +24,7 @@ class EnergyModule {
     public function processAction($action, $subAction, $gameState) {
         $actions = $this->getActions();
         if (!isset($actions[$action][$subAction])) {
-			error_log(sprintf('[Marco] energy : subAction [%s] does not exist for module [%s]', print_r($subAction, true), print_r($actions, true)));
+			error_log(sprintf('[Marco] industry : subAction [%s] does not exist for module [%s]', print_r($subAction, true), print_r($actions, true)));
             return $gameState;
         }
         
@@ -33,15 +33,16 @@ class EnergyModule {
 		{			
             $gameState['playerResources']['credits'] -= $actionConfig['cost'];        
             $gameState['resources']['electricity']   += $actionConfig['electricity'];			
+            $gameState['resources']['fossilFuels']   += $actionConfig['fossilFuel'];			
         }
         
         return $gameState;
     }
     
     public function update($gameState) {
+		
+		$gameState['resources']['fossilFuels'] += 0.02;
                 
-        
-        
         return $gameState;
     }
 }
