@@ -16,7 +16,7 @@ class GameController {
 		$_SESSION['gameState']['history']['emissions'][]           = $_SESSION['gameState']['metrics']['ghgEmissions'];
 		$_SESSION['gameState']['history']['pollution'][]  	       = $_SESSION['gameState']['metrics']['pollutionIndex'];
 		$_SESSION['gameState']['history']['climateEducation'][]    = $_SESSION['gameState']['metrics']['climateEducationIndex'];
-		$_SESSION['gameState']['history']['populationBillions'][]  = $_SESSION['gameState']['metrics']['populationBillions'];
+		$_SESSION['gameState']['history']['circularEconomy'][]     = $_SESSION['gameState']['metrics']['circularEconomyIndex'];
 		
 		$_SESSION['engine']         = serialize($this->engine);
 		error_log(sprintf('[Marco]main controller: Constructeur [%s] ', print_r($_SESSION, true)));

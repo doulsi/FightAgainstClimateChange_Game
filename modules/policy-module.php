@@ -37,6 +37,7 @@ class PolicyModule {
 			$gameState['metrics']['economicImpactIndex']  += $actionConfig['economicImpactIndex'] + (0.001 * $gameState['metrics']['climateEducationIndex']);
 			$gameState['metrics']['circularEconomyIndex'] += $actionConfig['circularEconomyIndex'] + (0.001 * $gameState['metrics']['climateEducationIndex']);
 			$gameState['resources']['fossilFuels']        += $actionConfig['fossilFuels'];
+			
         }
         
         return $gameState;

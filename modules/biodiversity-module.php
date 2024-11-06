@@ -34,8 +34,8 @@ class BiodiversityModule {
         if ($gameState['playerResources']['credits'] >= $actionConfig['cost']) 
 		{
             $gameState['playerResources']['credits']    -= $actionConfig['cost'];
-            $gameState['metrics']['biodiversityIndex']  += $actionConfig['biodiversityIndex'];
-            $gameState['metrics']['pollutionIndex']     += $actionConfig['pollutionIndex'];
+            //$gameState['metrics']['biodiversityIndex']  += $actionConfig['biodiversityIndex'];
+            //$gameState['metrics']['pollutionIndex']     += $actionConfig['pollutionIndex'];
 			
 			$gameState['resources']['forests']          +=  $actionConfig['forests'];
 			$gameState['resources']['fisheries']        +=  $actionConfig['fisheries'];
@@ -49,12 +49,9 @@ class BiodiversityModule {
 	{
   
         // Forest & fisheries and pollution impact on biodiversity 
-        $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['forests']      * 0.03;
-        $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['fisheries']    * 0.005;
-        //$gameState['metrics']['pollutionIndex']      -= $gameState['resources']['forests']      * 0.01 + $gameState['resources']['fisheries'] * 0.01;
-            
-			
-		$gameState['metrics']['biodiversityIndex']  -= $gameState['metrics']['pollutionIndex'] * 0.01;
+        $gameState['metrics']['biodiversityIndex']  += $gameState['resources']['forests']      * 0.04 + $gameState['resources']['fisheries']    * 0.008;
+ 
+		$gameState['metrics']['biodiversityIndex']  -= $gameState['metrics']['pollutionIndex'] * 0.05;
 		
         return $gameState;
     }

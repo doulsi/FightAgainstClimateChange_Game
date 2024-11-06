@@ -24,7 +24,7 @@ class HistoryModule {
        	$gameState['history']['emissions'][]           = $gameState['metrics']['ghgEmissions'];
        	$gameState['history']['pollution'][]           = $gameState['metrics']['pollutionIndex'];
        	$gameState['history']['climateEducation'][]    = $gameState['metrics']['climateEducationIndex'];
-       	$gameState['history']['populationBillions'][]  = $gameState['metrics']['populationBillions'];
+       	$gameState['history']['circularEconomy'][]     = $gameState['metrics']['circularEconomyIndex'];
 		            
         return $gameState;
     }

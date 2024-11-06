@@ -48,10 +48,7 @@ class ResearchModule {
 		// Natural biodiversity decline
         $gameState['metrics']['climateEducationIndex'] -= 0.2;
         $gameState['metrics']['circularEconomyIndex']  -= 0.1;
-        
-        
-        $gameState['metrics']['pollutionIndex']      -= $gameState['metrics']['climateEducationIndex']  * 0.2 + $gameState['metrics']['circularEconomyIndex']  * 0.1 ;
-        
+                
         return $gameState;
     }
 }
