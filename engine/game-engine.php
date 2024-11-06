@@ -3,11 +3,12 @@
 
 // engine/GameEngine.php
 require_once 'modules/biodiversity-module.php';
-require_once 'modules/energy-module.php';
+require_once 'modules/industry-module.php';
 require_once 'modules/research-module.php';
 require_once 'modules/policy-module.php';
 require_once 'modules/ghg-module.php';
 require_once 'modules/history-module.php';
+require_once 'modules/pollution-module.php';
 
 class GameEngine {
     private $config;
@@ -30,10 +31,11 @@ class GameEngine {
     private function initializeModules() {
         $this->modules = [
             'biodiversity' => new BiodiversityModule(),
-            'energy' 	   => new EnergyModule(),
+            'industry' 	   => new IndustryModule(),
             'research'     => new ResearchModule(),
             'policy'       => new PolicyModule(),
             'ghg'          => new GhgModule(),
+            'pollution'    => new PollutionModule(),
             'history'      => new HistoryModule()
         ];
 		error_log(sprintf("[Marco] Game engine initializeModules [%s] ", print_r($this->config, true)));
