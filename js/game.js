@@ -4,8 +4,8 @@ let gameState = null;
 let gameLoopInterval = null;
 
 // Initialize Chart
-const ctx = document.getElementById('climateChart').getContext('2d');
-const climateChart = new Chart(ctx, {
+const ctx = document.getElementById('metricsChart').getContext('2d');
+const metricsChart = new Chart(ctx, {
 	type: 'line',
 	data: {
 		labels: [],
@@ -34,8 +34,8 @@ const climateChart = new Chart(ctx, {
 			data: [],
 			borderColor: 'rgb(178, 100, 100)',
 			tension: 0.1
-		},{
-			label: 'population (Billions)',
+		} ,{
+			label: 'circularEconomy Index (%)',
 			data: [],
 			borderColor: 'rgb(35, 35, 35)',
 			tension: 0.1
@@ -165,35 +165,35 @@ function updateDisplay(state) {
     animateValueChange('#credits span', state.playerResources.credits);
     
     // Update meters with smooth transitions
-    updateMeter('temperature-bar', 'temperature-value', 
-                state.metrics.averageTemperature, 4, 
-                value => `+${value.toFixed(1)}°C`);
+    updateMeter('fossilfuels-bar', 'fossilfuels-value', 
+                state.resources.fossilFuels, 200, 
+                value => `${value.toFixed(1)}`);
     
-    updateMeter('biodiversity-bar', 'biodiversity-value', 
-                state.metrics.biodiversityIndex, 100, 
-                value => `${value.toFixed(1)}%`);
+    updateMeter('forests-bar', 'forests-value', 
+                state.resources.forests, 200, 
+                value => `${value.toFixed(1)}`);
     
-    updateMeter('ghg-bar', 'ghg-value', 
-                state.metrics.ghgEmissions, 100, 
-                value => `${value.toFixed(1)}%`);
+    updateMeter('fisheries-bar', 'fisheries-value', 
+                state.resources.fisheries, 200, 
+                value => `${value.toFixed(1)}`);
+	
+	updateMeter('electricity-bar', 'electricity-value', 
+                state.resources.electricity, 200, 
+                value => `${value.toFixed(1)}`);
     
 	// Update chart
-	climateChart.data.labels.push(gameState.year);
-	climateChart.data.datasets[0].data = gameState.history.temperature;
-	climateChart.data.datasets[1].data = gameState.history.biodiversity;
-	climateChart.data.datasets[2].data = gameState.history.emissions;
-	climateChart.data.datasets[3].data = gameState.history.pollution;
-	climateChart.data.datasets[4].data = gameState.history.climateEducation;
-	climateChart.data.datasets[5].data = gameState.history.populationBillions;
-	//climateChart.data.datasets[6].data = gameState.history.biodiversity;
-	climateChart.update();
+	metricsChart.data.labels.push(gameState.year);
+	metricsChart.data.datasets[0].data = gameState.history.temperature;
+	metricsChart.data.datasets[1].data = gameState.history.biodiversity;
+	metricsChart.data.datasets[2].data = gameState.history.emissions;
+	metricsChart.data.datasets[3].data = gameState.history.pollution;
+	metricsChart.data.datasets[4].data = gameState.history.climateEducation;	
+	metricsChart.data.datasets[5].data = gameState.history.circularEconomy;
+	metricsChart.update();
 	
     // Update events log with animation
     //updateEventsLog(state.events);
-    
-    // Update button states
-    //updateActionButtons(state.playerResources.credits);
-    
+      
 }
 
 function updateMeter(barId, valueId, value, max, formatFunction) {
@@ -258,63 +258,6 @@ function updateEventsLog(events) {
         }, index * 100);
     });
 }
-
-function updateActionButtons(credits) {
-    
-    
-    for (const [action, cost] of Object.entries(actions)) {
-        const button = document.querySelector(`button[onclick="performAction('${action}')"]`);
-        button.disabled = credits < cost;
-        
-        // Update button appearance based on affordability
-        if (credits >= cost) {
-            button.classList.remove('disabled');
-            button.classList.add('available');
-        } else {
-            button.classList.remove('available');
-            button.classList.add('disabled');
-        }
-    }
-}
-
-/*async function performAction(action) {
-    try {
-        // Disable all action buttons during action
-        const buttons = document.querySelectorAll('.action-btn');
-        buttons.forEach(button => button.disabled = true);
-        
-        // Show loading indicator
-        showLoadingIndicator();
-        
-        const response = await fetch('main-controller.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ action: action })
-        });
-        
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        gameState = await response.json();
-        updateDisplay(gameState);
-        
-        // Show action feedback
-        showActionFeedback(action, true);
-    } catch (error) {
-        console.error('Error performing action:', error);
-        showActionFeedback(action, false);
-    } finally {
-        // Hide loading indicator
-        hideLoadingIndicator();
-        
-        // Re-enable buttons
-        updateActionButtons(gameState.playerResources.credits);
-    }
-}*/
-
 async function gameLoop() {
     try {
         const response = await fetch('main-controller.php', {

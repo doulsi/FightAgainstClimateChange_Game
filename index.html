@@ -35,25 +35,32 @@
                 <h2>World Status - Year <span id="current-year">2024</span></h2>
                 <div class="metrics-grid">
                     <div class="metric">
-                        <label>Average Temperature</label>
+                        <label>Fossil fuels</label>
                         <div class="meter">
-                            <div id="temperature-bar" class="meter-fill"></div>
+                            <div id="fossilfuels-bar" class="meter-fill"></div>
                         </div>
-                        <span id="temperature-value">+1.2°C</span>
+                        <span id="fossilfuels-value">+1.2°C</span>
                     </div>
                     <div class="metric">
-                        <label>Biodiversity Index</label>
+                        <label>forest</label>
                         <div class="meter">
-                            <div id="biodiversity-bar" class="meter-fill"></div>
+                            <div id="forests-bar" class="meter-fill"></div>
                         </div>
-                        <span id="biodiversity-value">68%</span>
+                        <span id="forests-value">68%</span>
                     </div>
                     <div class="metric">
-                        <label>CO2 emission level</label>
+                        <label>fisheries</label>
                         <div class="meter">
-                            <div id="ghg-bar" class="meter-fill"></div>
+                            <div id="fisheries-bar" class="meter-fill"></div>
                         </div>
-                        <span id="ghg-value">90%</span>
+                        <span id="fisheries-value">90%</span>
+                    </div>
+                    <div class="metric">
+                        <label>electricity</label>
+                        <div class="meter">
+                            <div id="electricity-bar" class="meter-fill"></div>
+                        </div>
+                        <span id="electricity-value">90%</span>
                     </div>
                 </div>
             </div>
@@ -62,22 +69,23 @@
                 <h3>Available Actions</h3>
                 <div class="actions-grid">
                     <button onclick="displaySubModal('biodiversity_actions')" class="action-btn">
-                        Invest in biodiversity
+                        Natural ressources
                     </button>
-                    <button onclick="displaySubModal('energy_actions')" class="action-btn">
-                        Invest in low carbon emission electricity
+                    <button onclick="displaySubModal('industry_actions')" class="action-btn">
+                        Industry
                     </button>
                     <button onclick="displaySubModal('research_actions')" class="action-btn">
-                        Fund Research
+                        Research
                     </button>
                     <button onclick="displaySubModal('policy_actions')" class="action-btn">
-                        Influence Policy
+                        Policy
                     </button>
                 </div>
             </div>
 			
 			<div class="panel">
-				<canvas id="climateChart"></canvas>
+				<canvas id="metricsChart"></canvas>
+				<!--<canvas id="ressourcesChart"></canvas> -->
 			</div>
 			
 			<!-- To monetize with google adSence 
@@ -89,12 +97,12 @@
 					 data-ad-format="auto"
 					 data-full-width-responsive="true"></ins>
 			</div>
-			-->
+			
 			
             <div class="events-log">
                 <h3>Events Log</h3>
                 <div id="events-container"></div>
-            </div>
+            </div>-->
         </main>
     </div>
 
