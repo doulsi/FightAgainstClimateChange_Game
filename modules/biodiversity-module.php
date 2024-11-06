@@ -48,15 +48,14 @@ class BiodiversityModule {
     public function update($gameState) 
 	{
   
-        // Forest & fisheries impact on biodiversity and pollution
-        $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['forests']      * 0.001;
-        $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['fisheries']    * 0.001;
-        $gameState['metrics']['pollutionIndex']      -= $gameState['resources']['forests']      * 0.01 + $gameState['resources']['fisheries'] * 0.01;
+        // Forest & fisheries and pollution impact on biodiversity 
+        $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['forests']      * 0.03;
+        $gameState['metrics']['biodiversityIndex']   += $gameState['resources']['fisheries']    * 0.005;
+        //$gameState['metrics']['pollutionIndex']      -= $gameState['resources']['forests']      * 0.01 + $gameState['resources']['fisheries'] * 0.01;
             
 			
 		$gameState['metrics']['biodiversityIndex']  -= $gameState['metrics']['pollutionIndex'] * 0.01;
 		
-		$gameState['history']['biodiversity'][] = $gameState['metrics']['biodiversityIndex'];
         return $gameState;
     }
 }
