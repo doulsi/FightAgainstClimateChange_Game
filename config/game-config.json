@@ -34,7 +34,10 @@
 	{
 		"temperature":  [],
 		"biodiversity": [],
-		"emissions": 	[]
+		"emissions": 	[],
+		"pollution": 	[],
+		"climateEducation": 	[],
+		"populationBillions": 	[]
 	}
   },
   

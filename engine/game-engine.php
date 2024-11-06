@@ -7,6 +7,7 @@ require_once 'modules/energy-module.php';
 require_once 'modules/research-module.php';
 require_once 'modules/policy-module.php';
 require_once 'modules/ghg-module.php';
+require_once 'modules/history-module.php';
 
 class GameEngine {
     private $config;
@@ -32,7 +33,8 @@ class GameEngine {
             'energy' 	   => new EnergyModule(),
             'research'     => new ResearchModule(),
             'policy'       => new PolicyModule(),
-            'ghg'          => new GhgModule()
+            'ghg'          => new GhgModule(),
+            'history'      => new HistoryModule()
         ];
 		error_log(sprintf("[Marco] Game engine initializeModules [%s] ", print_r($this->config, true)));
 
