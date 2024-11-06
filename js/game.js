@@ -19,7 +19,28 @@ const climateChart = new Chart(ctx, {
 			data: [],
 			borderColor: 'rgb(75, 192, 192)',
 			tension: 0.1
-		}]
+		},{
+			label: 'emissions (ppm)',
+			data: [],
+			borderColor: 'rgb(75, 255, 192)',
+			tension: 0.1
+		},{
+			label: 'pollution Index (%)',
+			data: [],
+			borderColor: 'rgb(30, 150, 255)',
+			tension: 0.1
+		},{
+			label: 'climateEducation Index (%)',
+			data: [],
+			borderColor: 'rgb(178, 100, 100)',
+			tension: 0.1
+		},{
+			label: 'population (Billions)',
+			data: [],
+			borderColor: 'rgb(35, 35, 35)',
+			tension: 0.1
+		}
+		]
 	},
 	options: {
 		responsive: true,
@@ -152,6 +173,11 @@ function updateDisplay(state) {
 	climateChart.data.labels.push(gameState.year);
 	climateChart.data.datasets[0].data = gameState.history.temperature;
 	climateChart.data.datasets[1].data = gameState.history.biodiversity;
+	climateChart.data.datasets[2].data = gameState.history.emissions;
+	climateChart.data.datasets[3].data = gameState.history.pollution;
+	climateChart.data.datasets[4].data = gameState.history.climateEducation;
+	climateChart.data.datasets[5].data = gameState.history.populationBillions;
+	//climateChart.data.datasets[6].data = gameState.history.biodiversity;
 	climateChart.update();
 	
     // Update events log with animation
