@@ -241,11 +241,13 @@ header {
     visibility: visible;
     opacity: 1;
 }
-/* Add this to your styles.css */
-.social-links {
+
+.social {
     display: flex;
+	justify-content: space-between;
     align-items: center;
     gap: 10px;
+    margin-left: auto;
 }
 
 .social-btn {

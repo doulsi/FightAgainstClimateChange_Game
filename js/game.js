@@ -275,7 +275,7 @@ async function gameLoop() {
         
         gameState = await response.json();
         updateDisplay(gameState);
-		showErrorMessage('Game loop OK.')
+		
     } catch (error) {
         console.error('Error in game loop:', error);
         clearInterval(gameLoopInterval);
