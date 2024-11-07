@@ -1,4 +1,16 @@
 <?php
+
+// Error handling
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    error_log("Error [$errno]: $errstr in $errfile on line $errline");
+    return true;
+});
+
+// Session configuration
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1);
+ini_set('session.use_strict_mode', 1);
+
 // game.php
 session_start();
 require_once 'engine/game-engine.php';

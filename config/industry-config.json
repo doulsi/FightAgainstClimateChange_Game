@@ -4,9 +4,9 @@
 		"Build wind farm" : 
 		{
 				"cost": 400,
-				"fossilFuel" : 2.5,
+				"fossilFuel" : -2.5,
 				"electricity": 2,
-			    "description": "Increase circular economy by 3, and climate education by 8"
+			    "description": "Decrease fossilFuel by 2.5, and increase electricity by 2"
 		},
 		"Build solar farms" : 
 		{
