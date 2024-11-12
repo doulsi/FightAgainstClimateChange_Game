@@ -283,3 +283,19 @@ header {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+.story-section {
+
+    padding: 40px;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;
+	opacity: 0; /* Initially invisible */
+    transform: translateY(20px); /* Start slightly below its final position */
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.story-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

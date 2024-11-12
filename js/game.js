@@ -416,35 +416,15 @@ function handleTouchMove(evt) {
     touchStartY = null;
 }
 
-/*-- Monetize with Google adSence
-function initAdsense() {
-    try {
-        // Initialize all ad units
-        const adElements = document.querySelectorAll('.adsbygoogle');
-        adElements.forEach((ad) => {
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        });
-    } catch (error) {
-        console.error('Error initializing AdSense:', error);
-    }
-}
-*/
+document.addEventListener("scroll", function () {
+        const storySection = document.querySelector(".story-section");
+        const rect = storySection.getBoundingClientRect();
+        // Check if the section is in the viewport
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+            storySection.classList.add("visible");
+        }
+    });
 
-/* Monetize with Google adSence
-function refreshAds() {
-    try {
-        const adElements = document.querySelectorAll('.adsbygoogle');
-        adElements.forEach((ad) => {
-            // Clear existing ad
-            ad.innerHTML = '';
-            // Push new ad
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        });
-    } catch (error) {
-        console.error('Error refreshing ads:', error);
-    }
-}
-*/
 
 
 
