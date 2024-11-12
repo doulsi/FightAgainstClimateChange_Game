@@ -1,0 +1,14 @@
+# Allow all web crawlers to access the entire site
+User-agent: *
+Disallow:
+
+# Prevent crawlers from accessing private or temporary directories if they exist
+Disallow: /config/
+Disallow: /css/
+Disallow: /engine/
+Disallow: /js/
+Disallow: /modules/
+Disallow: /ads.txt
+Disallow: /main-controller.php
+
+
