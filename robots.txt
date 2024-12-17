@@ -8,7 +8,6 @@ Disallow: /css/
 Disallow: /engine/
 Disallow: /js/
 Disallow: /modules/
-Disallow: /ads.txt
 Disallow: /main-controller.php
 
 
