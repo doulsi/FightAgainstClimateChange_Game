@@ -6,9 +6,9 @@
     <!-- To monetize with google adSence-->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0253970190374932" crossorigin="anonymous"></script>	  
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <title>Climate Change Challenge - Save Earth from the Sixth Mass Extinction</title>
-	<meta name="description" content="Play and learn about climate change. Take control of Earth's future in this climate change simulation game. Make critical decisions about resources, industry, research and policy to prevent mass extinction and reverse global warming.">
-	<meta name="keywords" content="climate change game, environmental simulation, mass extinction prevention, global warming game, sustainability game, sustanability education, climate change education, fun education, play and learn ">
+    <title>Climate Change Challenge: Save Earth Game</title>
+	<meta name="description" content="Play this climate change game to save Earth! Make decisions on resources & policy to reverse global warming.">
+	<meta name="keywords" content="climate change simulation game, prevent mass extinction, global warming solutions, sustainability education, interactive climate game, fun education, play and learn">
     <link rel="stylesheet" href="css/styles.css">
 	<script type="application/ld+json">
 	{
@@ -22,6 +22,7 @@
 	  "educationalUse": ["Classroom", "Self-Learning"],
 	  "learningResourceType": ["Simulation", "Game"],
 	  "about": "Climate change, environmental conservation, sustainability",
+	  "url": "https://www.restepluk.fun/",
 	  "timeRequired": "PT1H",
 	  "alignmentType": "Skill",
 	  "learningOutcome": [
@@ -37,7 +38,11 @@
 		"@type": "Offer",
 		"availability": "https://schema.org/InStock",
 		"price": "0",
-		"priceCurrency": "USD"
+		"priceCurrency": "EUR"
+	  },
+	  "author": {
+		"@type": "Organization",
+		"name": "MVDL-corp" <!-- Or your name/organization -->
 	  }
 	}
 	</script>
@@ -117,7 +122,7 @@
             </div>
 			
 			<div class="panel">
-				<canvas id="metricsChart"></canvas>
+				<canvas id="metricsChart" aria-label="Chart displaying climate change metrics like fossil fuels and forest levels"></canvas>
 				<!--<canvas id="ressourcesChart"></canvas> -->
 			</div>
 			
@@ -177,7 +182,7 @@
 		</nav>
 	</footer>
 	
-    <script src="js/game.js"></script>
+    <script src="js/game.js" defer></script>
 
     <!-- Modal for sub-actions -->
     <div id="subActionModal" class="modal">
