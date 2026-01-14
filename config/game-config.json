@@ -32,12 +32,13 @@
     },
 	"history": 
 	{
-		"temperature":  [],
-		"biodiversity": [],
-		"emissions": 	[],
-		"pollution": 	[],
+		"temperature":          [],
+		"biodiversity":         [],
+		"emissions": 	        [],
+		"pollution": 	        [],
 		"climateEducation": 	[],
-		"populationBillions": 	[]
+		"populationBillions": 	[],
+		"circularEconomy":      []
 	}
   },
   

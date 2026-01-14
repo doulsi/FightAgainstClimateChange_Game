@@ -2,55 +2,8 @@
 // game.js
 let gameState = null;
 let gameLoopInterval = null;
-
-// Initialize Chart
-const ctx = document.getElementById('metricsChart').getContext('2d');
-const metricsChart = new Chart(ctx, {
-	type: 'line',
-	data: {
-		labels: [],
-		datasets: [{
-			label: 'Temperature Change (°C)',
-			data: [],
-			borderColor: 'rgb(255, 99, 132)',
-			tension: 0.1
-		}, {
-			label: 'Biodiversity Index (%)',
-			data: [],
-			borderColor: 'rgb(75, 192, 192)',
-			tension: 0.1
-		},{
-			label: 'emissions (ppm)',
-			data: [],
-			borderColor: 'rgb(75, 255, 192)',
-			tension: 0.1
-		},{
-			label: 'pollution Index (%)',
-			data: [],
-			borderColor: 'rgb(30, 150, 255)',
-			tension: 0.1
-		},{
-			label: 'climateEducation Index (%)',
-			data: [],
-			borderColor: 'rgb(178, 100, 100)',
-			tension: 0.1
-		} ,{
-			label: 'circularEconomy Index (%)',
-			data: [],
-			borderColor: 'rgb(35, 35, 35)',
-			tension: 0.1
-		}
-		]
-	},
-	options: {
-		responsive: true,
-		scales: {
-			y: {
-				beginAtZero: false
-			}
-		}
-	}
-});
+let gameEngine = null;
+let metricsChart = null;
 
 // Modify performAction to handle sub-action modal display
 async function displaySubModal(action) {
@@ -100,21 +53,21 @@ async function selectSubAction(action, subAction) {
     await processAction(action, subAction);
 }
 
-// Make server call to handle main or sub-action
+// Process action using local game engine
 async function processAction(action, subAction = null) {
     try {
-        const response = await fetch('main-controller.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: action, subAction: subAction })
-        });
-        
-        if (!response.ok) {
-            throw new Error('Server failed to process action');
+        if (!gameEngine || !gameState) {
+            throw new Error('Game engine not initialized');
         }
         
-        const gameState = await response.json();
-        updateDisplay(gameState);  // Update display with new game state
+        // Process action through game engine
+        gameState = gameEngine.processAction(action, subAction, gameState);
+        
+        // Save to localStorage
+        //saveGameState();
+        
+        // Update display
+        updateDisplay(gameState);
         
     } catch (error) {
         console.error('Error performing action:', error);
@@ -128,19 +81,89 @@ function closeModal() {
 }
 
 
+// Initialize Chart
+function initializeChart() {
+    const ctx = document.getElementById('metricsChart');
+    if (!ctx) {
+        console.error('Chart canvas not found');
+        return;
+    }
+    
+    metricsChart = new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Temperature Change (°C)',
+                data: [],
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.1
+            }, {
+                label: 'Biodiversity Index (%)',
+                data: [],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            },{
+                label: 'emissions (ppm)',
+                data: [],
+                borderColor: 'rgb(75, 255, 192)',
+                tension: 0.1
+            },{
+                label: 'pollution Index (%)',
+                data: [],
+                borderColor: 'rgb(30, 150, 255)',
+                tension: 0.1
+            },{
+                label: 'climateEducation Index (%)',
+                data: [],
+                borderColor: 'rgb(178, 100, 100)',
+                tension: 0.1
+            } ,{
+                label: 'circularEconomy Index (%)',
+                data: [],
+                borderColor: 'rgb(35, 35, 35)',
+                tension: 0.1
+            }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+}
+
 // Initialize display elements and game state
 async function initializeGame() {
     try {
-        // Initial game state fetch
-        const response = await fetch('main-controller.php', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        // Show loading message
+        const loadingMsg = document.createElement('div');
+        loadingMsg.id = 'loading-message';
+        loadingMsg.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 10000;';
+        loadingMsg.textContent = 'Loading game...';
+        document.body.appendChild(loadingMsg);
         
-        gameState = await response.json();
-		console.error('[GAME.JS] initializeGame:', gameState);
+        // Initialize chart first
+        initializeChart();
+        
+        // Initialize game engine
+        gameEngine = new GameEngine();
+        await gameEngine.initialize();
+        
+        // Load game state from localStorage or create new
+        //const savedState = loadGameState();
+        //if (savedState) {
+        //    gameState = savedState;
+        //} else {
+            gameState = await gameEngine.getInitialState();
+            //saveGameState();
+        //}
+        
+        console.log('[GAME.JS] initializeGame:', gameState);
         updateDisplay(gameState);
         
         // Start game loop
@@ -151,9 +174,23 @@ async function initializeGame() {
         
         // Initialize tooltips and UI elements
         initializeUI();
+        
+        // Remove loading message
+        const loadingEl = document.getElementById('loading-message');
+        if (loadingEl) loadingEl.remove();
     } catch (error) {
         console.error('Failed to initialize game:', error);
-        showErrorMessage('Failed to initialize game. Please refresh the page.');
+        
+        // Remove loading message if still present
+        const loadingEl = document.getElementById('loading-message');
+        if (loadingEl) loadingEl.remove();
+        
+        // Show detailed error message
+        const errorMsg = `Failed to initialize game: ${error.message}. Please check the browser console for details.`;
+        showErrorMessage(errorMsg);
+        
+        // Log full error for debugging
+        console.error('Full error details:', error);
     }
 }
 
@@ -182,14 +219,20 @@ function updateDisplay(state) {
                 value => `${value.toFixed(1)}`);
     
 	// Update chart
-	metricsChart.data.labels.push(gameState.year);
-	metricsChart.data.datasets[0].data = gameState.history.temperature;
-	metricsChart.data.datasets[1].data = gameState.history.biodiversity;
-	metricsChart.data.datasets[2].data = gameState.history.emissions;
-	metricsChart.data.datasets[3].data = gameState.history.pollution;
-	metricsChart.data.datasets[4].data = gameState.history.climateEducation;	
-	metricsChart.data.datasets[5].data = gameState.history.circularEconomy;
-	metricsChart.update();
+	if (metricsChart && state.history) {
+		// Generate labels based on history length
+		const labels = state.history.temperature.map((_, index) => 
+			state.year - (state.history.temperature.length - 1 - index) * 0.25
+		);
+		metricsChart.data.labels = labels;
+		metricsChart.data.datasets[0].data = state.history.temperature;
+		metricsChart.data.datasets[1].data = state.history.biodiversity;
+		metricsChart.data.datasets[2].data = state.history.emissions;
+		metricsChart.data.datasets[3].data = state.history.pollution;
+		metricsChart.data.datasets[4].data = state.history.climateEducation;	
+		metricsChart.data.datasets[5].data = state.history.circularEconomy;
+		metricsChart.update();
+	}
 	
     // Update events log with animation
     //updateEventsLog(state.events);
@@ -260,20 +303,17 @@ function updateEventsLog(events) {
 }
 async function gameLoop() {
     try {
-        const response = await fetch('main-controller.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ update: true })
-        });
-        
-        if (!response.ok) {
-			showErrorMessage('Network response was not ok');
-            throw new Error('Network response was not ok');
+        if (!gameEngine || !gameState) {
+            throw new Error('Game engine not initialized');
         }
         
-        gameState = await response.json();
+        // Update game state through engine
+        gameState = gameEngine.update(gameState);
+        
+        // Save to localStorage
+        //saveGameState();
+        
+        // Update display
         updateDisplay(gameState);
 		
     } catch (error) {
@@ -357,10 +397,30 @@ function initializeUI() {
     });	
 }
 
-if (document.referrer === '') 
-{
-        sessionStorage.clear();
+// LocalStorage management functions
+function saveGameState() {
+    try {
+        localStorage.setItem('climateGameState', JSON.stringify(gameState));
+    } catch (error) {
+        console.error('Error saving game state:', error);
+    }
 }
+
+function loadGameState() {
+    //try {
+    //    const saved = localStorage.getItem('climateGameState');
+    //    return saved ? JSON.parse(saved) : null;
+    //} catch (error) {
+    //    console.error('Error loading game state:', error);
+        return null;
+    //}
+}
+
+// Clear game state if coming from external referrer
+if (document.referrer === '') {
+    localStorage.removeItem('climateGameState');
+}
+
 // Initialize game when document is ready
 document.addEventListener('DOMContentLoaded', initializeGame);
 
